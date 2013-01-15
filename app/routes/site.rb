@@ -4,11 +4,11 @@ class Main
     haml :home
   end
 
-  get "/Landscapes" do
+  get "/landscapes" do
     haml :landscapes
   end
 
-  get "/Oysters" do
+  get "/oysters" do
     haml :oysters
   end
 
@@ -16,7 +16,7 @@ class Main
     haml :cv
   end
 
-  get "/Contact" do
+  get "/contact" do
     haml :contact
   end
 
