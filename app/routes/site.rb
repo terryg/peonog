@@ -4,8 +4,9 @@ class Main
     haml :home
   end
 
-  get "/landscapes" do
-    haml :landscapes
+  get "/series/:id" do
+    @name = params[:id].upcase
+    haml :series
   end
 
   get "/oysters" do
