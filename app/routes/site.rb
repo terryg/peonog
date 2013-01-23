@@ -26,7 +26,7 @@ class Main
   end
 
   post "/upload" do
-    if params['password'] == karlfardman
+    if params['password'] == 'karlfardman'
       File.open('public/uploads/' + params['myfile'][:filename], "w") do |f|
         f.write(params['myfile'][:tempfile].read)
       end
