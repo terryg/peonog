@@ -1,0 +1,19 @@
+%html
+  %body
+    %h1 File uploader!
+    %form(method="post" enctype='multipart/form-data')   
+      %input(type='file' name='myfile')    
+      %br
+      Name: %input(type='text' name='name')
+      %br
+      Width (mm): %input(type='text' name='width')
+      %br
+      Height (mm): %input(type='text' name='height')
+      %br
+      Media: %input(type='text' name='media')
+      %br
+      Series: %input(type='text' name='series')
+      %br
+      Password: %input(type='text' name='password')
+      %br
+      %input(type='submit' value='Upload!')

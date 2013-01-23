@@ -21,4 +21,15 @@ class Main
     haml :contact
   end
 
+  get "/upload" do
+    haml :upload
+  end
+
+  post "/upload" do
+    if params['password'] == karlfardman
+      File.open('public/uploads/' + params['myfile'][:filename], "w") do |f|
+        f.write(params['myfile'][:tempfile].read)
+      end
+    end
+  end
 end
