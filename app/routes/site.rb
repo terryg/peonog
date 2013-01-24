@@ -6,6 +6,7 @@ class Main
 
   get "/series/:id" do
     @name = params[:id].upcase
+    @assets = Asset.all('series.name' => @name)
     haml :series
   end
 
@@ -27,8 +28,19 @@ class Main
 
   post "/upload" do
     if params['password'] == 'karlfardman'
-      File.open('public/uploads/' + params['myfile'][:filename], "w") do |f|
+      filepath = 'public/uploads/' + params['myfile'][:filename]
+      File.open(filepath, "w") do |f|
         f.write(params['myfile'][:tempfile].read)
+
+        series = Series.first_or_create(:name => params[:series])
+        Asset.create(:title => params[:name],
+                     :year => params[:year],
+                     :media => params[:media],
+                     :width => params[:width],
+                     :height => params[:height],
+                     :path_to_img => "/" + filepath,
+                     :series_id => series.id)
+                                       
       end
     end
   end
