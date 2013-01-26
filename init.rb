@@ -34,8 +34,7 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
-
-DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite:///#{Dir.pwd}/db/development.sqlite3"))
+DataMapper.setup(:default, (ENV["HEROKU_POSTGRESQL_GOLD_URL"] || "sqlite:///#{Dir.pwd}/db/development.sqlite3"))
 DataMapper.auto_upgrade!
 
 Main.run! if Main.run?
