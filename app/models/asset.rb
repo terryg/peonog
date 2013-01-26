@@ -12,11 +12,11 @@ class Asset
   belongs_to :series
 
   def alt_text
-    "#{title}. #{width_in}x#{height_in}. #{media}. #{year}."
+    "%s. %.2fx%.2f. %s. %s." % [title, height_in, width_in, media, year]
   end
 
-  def text_html
-    "<em>#{title}</em>, #{year}. #{media}. #{width_in} x #{height_in} inches"
+  def text
+    "%s, %s. %s. %.1f x %.1f inches" % [title, year, media, height_in, width_in]
   end
 
   def width_in

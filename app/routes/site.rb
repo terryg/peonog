@@ -28,17 +28,19 @@ class Main
 
   post "/upload" do
     if params['password'] == 'karlfardman'
-      filepath = 'public/uploads/' + params['myfile'][:filename]
+      filename = params['myfile'][:filename]
+      uri = '/uploads/' + filename
+      filepath = 'public' + uri
       File.open(filepath, "w") do |f|
         f.write(params['myfile'][:tempfile].read)
 
         series = Series.first_or_create(:name => params[:series])
-        Asset.create(:title => params[:name],
+        Asset.create(:title => params[:title],
                      :year => params[:year],
                      :media => params[:media],
                      :width => params[:width],
                      :height => params[:height],
-                     :path_to_img => "/" + filepath,
+                     :path_to_img => uri,
                      :series_id => series.id)
                                        
       end

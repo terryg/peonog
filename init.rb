@@ -25,12 +25,6 @@ end
 # Connect to redis database.
 Ohm.connect(monk_settings(:redis))
 
-# If you want the logs displayed you have to do this before the call to setup
-DataMapper::Logger.new($stdout, :debug)
-
-# An in-memory Sqlite3 connection:
-DataMapper.setup(:default, "sqlite:#{Dir.pwd}/db/baldur.db")
-
 # Load all application files.
 Dir[root_path("app/**/*.rb")].each do |file|
   require file
@@ -40,7 +34,8 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
-DataMapper.finalize
-DataMapper.auto_migrate!
+
+DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite:///#{Dir.pwd}/db/development.sqlite3"))
+DataMapper.auto_upgrade!
 
 Main.run! if Main.run?

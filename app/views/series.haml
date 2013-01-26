@@ -5,10 +5,14 @@
   #nav
   #main
     %h3= @name
-    
+    %br
+    %br
     - @assets.each do |asset|
-      %img{ :src => asset.path_to_img, :alt => asset.alt_text }
-      %br asset.text_html
+      %div
+        %img{ :src => asset.path_to_img, :alt => asset.alt_text }
+        %br
+        = asset.text
+      %br
 
   #sidebar
     %ul
