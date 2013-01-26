@@ -38,12 +38,14 @@ class Main
         Asset.create(:title => params[:title],
                      :year => params[:year],
                      :media => params[:media],
-                     :width => params[:width],
-                     :height => params[:height],
+                     :width => params[:width].to_i*25.4,
+                     :height => params[:height].to_i*25.4,
                      :path_to_img => uri,
                      :series_id => series.id)
                                        
       end
     end
+
+    haml :upload
   end
 end
