@@ -7,8 +7,7 @@ class Asset
   property :media, String
   property :width, Float
   property :height, Float
-  property :image_url, String
-  property :thumbnail_url, String
+  property :path_to_img, String
 
   belongs_to :series
 
