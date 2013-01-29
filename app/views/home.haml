@@ -1,20 +1,11 @@
 #wrap
   #header
-    %a{ :href => "/" }
-      %img{ :src => '/images/logo.png' }
+    != partial :header
   #nav
   #main
     %img{ :src => '/images/spiaggia.jpg', :alt => "Spiaggia. 10x14. Oil on canvas. 2012."  }
     %br <em>Spiaggia</em>, 2012. Oil on canvas. 10 x 14 inches
   #sidebar
-    %ul
-      %li 
-        %a{ :href => "/series/abstracts" } ABSTRACTS
-      %li
-        %a{ :href => "/series/oysters" } OYSTERS
-      %li &nbsp;
-      %li
-        %a{ :href => "/CV" } CV     
-      %li
-        %a{ :href => "/contact" } CONTACT
+    != partial :sidebar
   #footer
+    != partial :footer

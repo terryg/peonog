@@ -1,7 +1,6 @@
 #wrap
   #header
-    %a{ :href => "/" }
-      %img{ :src => '/images/logo.png' }
+    != partial :header
   #nav
   #main
     %h3 CV
@@ -61,14 +60,6 @@
     %br	 
 
   #sidebar
-    %ul
-      %li 
-        %a{ :href => "/series/abstracts" } ABSTRACTS
-      %li
-        %a{ :href => "/series/oysters" } OYSTERS
-      %li &nbsp;
-      %li
-        %a{ :href => "/CV" } CV     
-      %li
-        %a{ :href => "/contact" } CONTACT
+    != partial :sidebar
   #footer
+    != partial :footer

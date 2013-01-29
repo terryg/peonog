@@ -7,16 +7,17 @@ class Asset
   property :media, String
   property :width, Float
   property :height, Float
-  property :path_to_img, String
+  property :image_url, String
+  property :thumbnail_url, String
 
   belongs_to :series
 
   def alt_text
-    "%s. %.2fx%.2f. %s. %s." % [title, height_in, width_in, media, year]
+    "%s. %.1fx%.1f. %s. %s." % [title, height_in, width_in, media, year]
   end
 
-  def text
-    "%s, %s. %s. %.1f x %.1f inches" % [title, year, media, height_in, width_in]
+  def text_html
+    "<em>%s</em>, %s. %s. %.1f x %.1f inches" % [title, year, media, height_in, width_in]
   end
 
   def width_in

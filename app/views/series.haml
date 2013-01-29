@@ -1,7 +1,6 @@
 #wrap
   #header
-    %a{ :href => "/" }
-      %img{ :src => '/images/logo.png' }
+    != partial :header
   #nav
   #main
     %h3= @name
@@ -11,18 +10,10 @@
       %div
         %img{ :src => asset.path_to_img, :alt => asset.alt_text }
         %br
-        = asset.text
+        != asset.text_html
       %br
 
   #sidebar
-    %ul
-      %li 
-        %a{ :href => "/series/abstracts" } ABSTRACTS
-      %li
-        %a{ :href => "/series/oysters" } OYSTERS
-      %li &nbsp;
-      %li
-        %a{ :href => "/CV" } CV     
-      %li
-        %a{ :href => "/contact" } CONTACT
+    != partial :sidebar
   #footer
+    != partial :footer
