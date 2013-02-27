@@ -7,9 +7,13 @@ class Asset
   property :media, String
   property :width, Float
   property :height, Float
-  property :path_to_img, String
+  property :s3_filename, String
 
   belongs_to :series
+
+  def url
+    'http://s3.amazonaws.com/' + ENV['S3_BUCKET_NAME'] + '/' + s3_filename
+  end
 
   def alt_text
     "%s. %.1fx%.1f. %s. %s." % [title, height_in, width_in, media, year]

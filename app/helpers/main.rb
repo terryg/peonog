@@ -23,5 +23,24 @@ class Main
     def partial(template, locals = {})
       haml(template, {:layout => false}, locals)
     end
+
+    # Store file on S3, returning filename
+    #
+    # Example:
+    #   store_on_s3(temp_file, filename)
+    def store_on_s3(temp_file, filename)
+      value = (0...32).map{(65+rand(26)).chr}.join
+      ext = File.extname(filename)
+      fkey = value  + ext
+      fname = 'public/uploads/' + fkey
+      File.open(fname, "w") do |f|
+        f.write(temp_file.read)
+      end
+      
+      AWS::S3::S3Object.store(fkey, open(fname), ENV['S3_BUCKET_NAME'])
+      
+      return fkey
+    end
+
   end
 end

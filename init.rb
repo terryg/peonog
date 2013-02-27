@@ -16,6 +16,7 @@ require "logger"
 require "dm-core"
 require "dm-validations"
 require "dm-migrations"
+require "aws/s3"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
@@ -34,7 +35,12 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
-DataMapper.setup(:default, (ENV["HEROKU_POSTGRESQL_GOLD_URL"] || "sqlite:///#{Dir.pwd}/db/development.sqlite3"))
+DataMapper.setup(:default, (ENV['HEROKU_POSTGRESQL_GOLD_URL'] || "sqlite:///#{Dir.pwd}/db/development.sqlite3"))
 DataMapper.auto_upgrade!
+
+AWS::S3::Base.establish_connection!(
+  :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+  :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+)
 
 Main.run! if Main.run?

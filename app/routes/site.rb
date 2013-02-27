@@ -10,6 +10,12 @@ class Main
     haml :series
   end
 
+  get "/works/:id" do
+    @name = params[:id]
+    @assets = Asset.all('year' => @name)
+    haml :series
+  end
+
   get "/oysters" do
     haml :oysters
   end
@@ -29,21 +35,17 @@ class Main
   post "/upload" do
     if params['password'] == 'karlfardman'
       filename = params['myfile'][:filename]
-      uri = '/uploads/' + filename
-      filepath = 'public' + uri
-      File.open(filepath, "w") do |f|
-        f.write(params['myfile'][:tempfile].read)
 
-        series = Series.first_or_create(:name => params[:series])
-        Asset.create(:title => params[:title],
-                     :year => params[:year],
-                     :media => params[:media],
-                     :width => params[:width].to_i*25.4,
-                     :height => params[:height].to_i*25.4,
-                     :path_to_img => uri,
-                     :series_id => series.id)
-                                       
-      end
+      s3_filename = store_on_s3(params['myfile'][:tempfile], filename)
+
+      series = Series.first_or_create(:name => params[:series])
+      Asset.create(:title => params[:title],
+                   :year => params[:year],
+                   :media => params[:media],
+                   :width => params[:width].to_i*25.4,
+                   :height => params[:height].to_i*25.4,
+                   :s3_filename => s3_filename,
+                   :series_id => series.id)
     end
 
     haml :upload
