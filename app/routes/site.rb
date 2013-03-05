@@ -34,18 +34,16 @@ class Main
 
   post "/upload" do
     if params['password'] == 'karlfardman'
-      filename = params['myfile'][:filename]
-
-      s3_filename = store_on_s3(params['myfile'][:tempfile], filename)
-
       series = Series.first_or_create(:name => params[:series])
-      Asset.create(:title => params[:title],
-                   :year => params[:year],
-                   :media => params[:media],
-                   :width => params[:width].to_i*25.4,
-                   :height => params[:height].to_i*25.4,
-                   :s3_filename => s3_filename,
-                   :series_id => series.id)
+      asset = Asset.create(:title => params[:title],
+                           :year => params[:year],
+                           :media => params[:media],
+                           :width => params[:width].to_i*25.4,
+                           :height => params[:height].to_i*25.4,
+                           :series_id => series.id)
+
+      asset.store_on_s3(params['myfile'][:tempfile], 
+                        params['myfile'][:filename])
     end
 
     haml :upload
