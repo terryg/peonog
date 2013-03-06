@@ -4,14 +4,21 @@
   #nav
   #main
     %h3= @name
-    %br
-    %br
-    - @assets.each do |asset|
-      %div
-        %img{ :src => asset.url, :alt => asset.alt_text }
-        %br
-        != asset.text_html
-      %br
+
+    %div{ :class => "thumbs-container" }
+      %div{ :class => "thumbs-main" }
+        %div{ :class => "thumbs-block" }
+          != partial :asset_thumbnail, :asset => @assets[3]
+        %div{ :class => "thumbs-block" }
+          != partial :asset_thumbnail, :asset => @assets[2]
+
+    %div{ :class => "thumbs-container" }
+      %div{ :class => "thumbs-main" }
+        %div{ :class => "thumbs-block" }
+          != partial :asset_thumbnail, :asset => @assets[1]
+        %div{ :class => "thumbs-block" }
+          != partial :asset_thumbnail, :asset => @assets[0]
+
 
   #sidebar
     != partial :sidebar

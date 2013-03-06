@@ -12,8 +12,28 @@ class Main
 
   get "/works/:id" do
     @name = params[:id]
-    @assets = Asset.all('year' => @name)
+    @assets = Asset.all(:year => @name)
     haml :series
+  end
+
+  get "/paintings" do
+    page = if params[:page]
+             params[:page]
+           else
+             1
+           end
+
+    @assets = Asset.all('deleted' => false, :order => [ :id.asc ]).page page, :per_page => 4
+    haml :series
+  end
+
+  get "/paintings/view/:id" do
+    @asset = Asset.get(params[:id])
+    a = Asset.first('deleted' => false, :id.lt => params[:id], :order => [ :id.desc ])
+    @prev_id = a.id if a
+    a = Asset.first('deleted' => false, :id.gt => params[:id], :order => [ :id.asc ])
+    @next_id = a.id if a
+    haml :asset
   end
 
   get "/oysters" do

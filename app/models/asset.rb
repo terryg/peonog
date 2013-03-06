@@ -7,8 +7,11 @@ class Asset
   property :media, String
   property :width, Float
   property :height, Float
-  property :s3_filename, String
-
+  property :s3_original, String
+  property :s3_500, String
+  property :s3_thumbnail, String
+  property :deleted, Boolean, :required => true, :default => false
+  
   belongs_to :series
 
   attr_accessor :temp_filename
@@ -22,18 +25,20 @@ class Asset
       f.write(temp_file.read)
     end
 
+    AWS::S3::S3Object.store(fkey, open(fname), ENV['S3_BUCKET_NAME'])
+    update(:s3_original => fname)
+
 #    image = Magick::Image::read(fname).first      
 #    image.resize_to_fit!(500)
 #    image.write(fname)
 #    image.destroy!
       
-    AWS::S3::S3Object.store(fkey, open(fname), ENV['S3_BUCKET_NAME'])
-      
-    update(:s3_filename => fkey) 
+#    AWS::S3::S3Object.store(fkey, open(fname), ENV['S3_BUCKET_NAME'])
+#    update(:s3_500 => fkey) 
   end
 
   def url
-    'http://s3.amazonaws.com/' + ENV['S3_BUCKET_NAME'] + '/' + s3_filename
+    'http://s3.amazonaws.com/' + ENV['S3_BUCKET_NAME'] + '/' + s3_original
   end
 
   def alt_text
@@ -42,6 +47,14 @@ class Asset
 
   def text_html
     "<em>%s</em>, %s. %s. %.1f x %.1f inches" % [title, year, media, height_in, width_in]
+  end
+
+  def title_year_html
+    "<em>%s</em>, %s." % [title, year]
+  end
+
+  def dim
+    "%.1f x %.1f inches" % [height_in, width_in]
   end
 
   def width_in

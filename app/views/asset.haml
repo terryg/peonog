@@ -1,0 +1,33 @@
+#wrap
+  #header
+    != partial :header
+  #nav
+  #main
+    %div{ :id => "painting-selector" }
+      - if "#{@prev_id}" != ""
+        %a{ :href => "/paintings/view/#{@prev_id}" }
+          <<
+      - else
+        &nbsp;
+        &nbsp;
+
+      &nbsp;
+      &nbsp;
+      - if "#{@next_id}" != ""
+        %a{ :href => "/paintings/view/#{@next_id}" }
+          >>
+      - else
+        &nbsp;
+        &nbsp;
+
+    %div
+      %img{ :src => @asset.url, :alt => @asset.alt_text }
+      %br
+      != @asset.text_html
+    %div
+
+  #sidebar
+    != partial :sidebar
+  #footer
+    != partial :footer
+

@@ -31,6 +31,9 @@ GEM
       dm-core (~> 1.2.0)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
+    dm-pager (1.1.0)
+      dm-aggregates (>= 0.10.1)
+      dm-core (>= 0.10.1)
     dm-postgres-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_postgres (~> 0.10.6)
@@ -80,6 +83,7 @@ PLATFORMS
 DEPENDENCIES
   aws-s3
   data_mapper
+  dm-pager
   dm-postgres-adapter
   pg
   sinatra
