@@ -17,13 +17,13 @@ class Main
   end
 
   get "/paintings" do
-    page = if params[:page]
-             params[:page]
-           else
-             1
-           end
+    @page = if params[:page]
+              params[:page]
+            else
+              1
+            end
 
-    @assets = Asset.all('deleted' => false, :order => [ :id.asc ]).page page, :per_page => 4
+    @assets = Asset.all('deleted' => false, :order => [ :id.asc ]).page @page, :per_page => 4
     haml :series
   end
 

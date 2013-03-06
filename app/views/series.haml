@@ -3,7 +3,7 @@
     != partial :header
   #nav
   #main
-    %h3= @name
+    != Asset.page(@page).pager.to_html '/paintings'
 
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }
