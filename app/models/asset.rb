@@ -43,11 +43,11 @@ class Asset
   end
 
   def alt_text
-    "%s. %.1fx%.1f. %s. %s." % [title, height_in, width_in, media, year]
+    "%s. %dx%d. %s. %s." % [title, height_in, width_in, media, year]
   end
 
   def text_html
-    "<em>%s</em>, %s. %s. %.1f x %.1f inches" % [title, year, media, height_in, width_in]
+    "<em>%s</em>, %s. %s. %d x %d inches" % [title, year, media, height_in, width_in]
   end
 
   def title_year_html
@@ -55,7 +55,7 @@ class Asset
   end
 
   def dim
-    "%.1f x %.1f inches" % [height_in, width_in]
+    "%d x %d inches" % [height_in, width_in]
   end
 
   def width_in
