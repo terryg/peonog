@@ -17,13 +17,13 @@ class Main
   end
 
   get "/paintings" do
-    @page = if params[:page]
-              params[:page]
-            else
+    @page = if params[:page].nil?
               1
+            else
+              params[:page]
             end
 
-    @assets = Asset.all('deleted' => false, :order => [ :id.asc ]).page @page, :per_page => 4
+    @assets = Asset.page @page, :per_page => 4
     haml :thumbs
   end
 

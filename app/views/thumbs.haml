@@ -5,22 +5,21 @@
   #sidebar
     != partial :sidebar
   #main
-    Page
     != Asset.page(@page).pager.to_html '/paintings'
 
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[3]
+          != partial :asset_thumbnail, :asset => @assets[0]
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[2]
+          != partial :asset_thumbnail, :asset => @assets[1]
 
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[1]
+          != partial :asset_thumbnail, :asset => @assets[2]
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[0]
+          != partial :asset_thumbnail, :asset => @assets[3]
 
 
   #footer

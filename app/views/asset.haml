@@ -2,6 +2,8 @@
   #header
     != partial :header
   #nav
+  #sidebar
+    != partial :sidebar
   #main
     %div{ :id => "painting-selector" }
       - if "#{@prev_id}" != ""
@@ -26,8 +28,6 @@
       != @asset.text_html
     %div
 
-  #sidebar
-    != partial :sidebar
   #footer
     != partial :footer
 
