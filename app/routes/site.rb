@@ -24,7 +24,7 @@ class Main
             end
 
     @assets = Asset.all('deleted' => false, :order => [ :id.asc ]).page @page, :per_page => 4
-    haml :series
+    haml :thumbs
   end
 
   get "/paintings/view/:id" do
