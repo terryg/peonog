@@ -5,7 +5,7 @@
   #sidebar
     != partial :sidebar
   #main
-    != Asset.page(@page).pager.to_html '/paintings'
+    != pagination_links
 
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }

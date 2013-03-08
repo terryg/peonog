@@ -17,13 +17,7 @@ class Main
   end
 
   get "/paintings" do
-    @page = if params[:page].nil?
-              1
-            else
-              params[:page]
-            end
-
-    @assets = Asset.page @page, :per_page => 4
+    @assets = paginate(Asset.all(:deleted => false))
     haml :thumbs
   end
 
