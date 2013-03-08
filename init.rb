@@ -16,7 +16,7 @@ require "logger"
 require "dm-core"
 require "dm-validations"
 require "dm-migrations"
-require "dm-pager"
+require "dm-chunked_query"
 require "aws/s3"
 
 class Main < Monk::Glue
