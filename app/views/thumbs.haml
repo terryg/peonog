@@ -10,17 +10,20 @@
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[0]
+          - unless @assets[0].nil?
+            != partial :asset_thumbnail, :asset => @assets[0]
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[1]
+          - unless @assets[1].nil?
+            != partial :asset_thumbnail, :asset => @assets[1]
 
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[2]
+          - unless @assets[2].nil?
+            != partial :asset_thumbnail, :asset => @assets[2]
         %div{ :class => "thumbs-block" }
-          != partial :asset_thumbnail, :asset => @assets[3]
-
+          - unless @assets[3].nil?
+            != partial :asset_thumbnail, :asset => @assets[3]
 
   #footer
     != partial :footer
