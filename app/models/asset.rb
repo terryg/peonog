@@ -11,7 +11,8 @@ class Asset
   property :s3_500, String
   property :s3_thumbnail, String
   property :deleted, Boolean, :required => true, :default => false
-  
+  property :sold, Boolean, :required => true, :default => false
+
   belongs_to :series
 
   attr_accessor :temp_filename
@@ -43,11 +44,11 @@ class Asset
   end
 
   def alt_text
-    "%s. %dx%d. %s. %s." % [title, height_in, width_in, media, year]
+    "%s. %dx%d. %s. %s. %s" % [title, height_in, width_in, media, year, (sold) ? 'SOLD' : '']
   end
 
   def text_html
-    "<em>%s</em>, %s. %s. %d x %d inches" % [title, year, media, height_in, width_in]
+    "<em>%s</em>, %s. %s. %d x %d inches. %s" % [title, year, media, height_in, width_in, (sold) ? 'SOLD' : '']
   end
 
   def title_year_html

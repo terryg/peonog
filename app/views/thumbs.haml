@@ -5,7 +5,8 @@
   #sidebar
     != partial :sidebar
   #main
-    != pagination_links
+    %div{ :class => "page-links" }
+      != pagination_links
 
     %div{ :class => "thumbs-container" }
       %div{ :class => "thumbs-main" }
