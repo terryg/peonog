@@ -47,7 +47,7 @@ class Main
   end
 
   post "/upload" do
-    if params['password'] == 'karlfardman'
+    if params['password'] == ENV['UPLOAD_PASSWORD']
       series = Series.first_or_create(:name => params[:series])
       asset = Asset.create(:title => params[:title],
                            :year => params[:year],
