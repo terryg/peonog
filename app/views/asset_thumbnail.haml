@@ -1,8 +1,12 @@
-%a{ :href => "/paintings/view/#{asset.id}" }
-  %img{ :height => "150", :src => asset.url, :alt => asset.alt_text }
-%br
-!= asset.title_year_html
-%br
-!= asset.media
-%br
-!= asset.dim
+%div{:class => "asset-thumbnail"}
+  %a{ :href => "/paintings/view/#{asset.id}" }
+    %img{ :height => "150", :src => asset.url, :alt => asset.alt_text }
+  %br
+  != asset.title_year_html
+  %br
+  != asset.media
+  %br
+  != asset.dim
+  %br
+  %br
+  %br
