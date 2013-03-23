@@ -36,7 +36,7 @@ class Main
     end
 
     def pagination_links
-      [%(<ul class="pager">),
+      [%(<ul class="paginator">),
        intermediate_links.join("\n"),
        '</ul>'].join
     end

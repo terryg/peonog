@@ -5,26 +5,24 @@
   #sidebar
     != partial :sidebar
   #main
-    %div{ :class => "page-links" }
+    %div{ :class => "pager-links" }
       != pagination_links
 
-    %div{ :class => "thumbs-container" }
-      %div{ :class => "thumbs-main" }
-        %div{ :class => "thumbs-block" }
-          - unless @assets[0].nil?
-            != partial :asset_thumbnail, :asset => @assets[0]
-        %div{ :class => "thumbs-block" }
-          - unless @assets[1].nil?
-            != partial :asset_thumbnail, :asset => @assets[1]
+    %div{ :class => "row-fluid" }
+      %div{ :class => "span6" }
+        - unless @assets[0].nil?
+          != partial :asset_thumbnail, :asset => @assets[0]
+      %div{ :class => "span6" }
+        - unless @assets[1].nil?
+          != partial :asset_thumbnail, :asset => @assets[1]
 
-    %div{ :class => "thumbs-container" }
-      %div{ :class => "thumbs-main" }
-        %div{ :class => "thumbs-block" }
-          - unless @assets[2].nil?
-            != partial :asset_thumbnail, :asset => @assets[2]
-        %div{ :class => "thumbs-block" }
-          - unless @assets[3].nil?
-            != partial :asset_thumbnail, :asset => @assets[3]
+    %div{ :class => "row-fluid" }
+      %div{ :class => "span6" }
+        - unless @assets[2].nil?
+          != partial :asset_thumbnail, :asset => @assets[2]
+      %div{ :class => "span6" }
+        - unless @assets[3].nil?
+          != partial :asset_thumbnail, :asset => @assets[3]
 
   #footer
     != partial :footer
