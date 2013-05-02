@@ -39,6 +39,7 @@ class Main
   end
 
   get "/contact" do
+    @address = "artist@laramirandagoodman.com"
     haml :contact
   end
 

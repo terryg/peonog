@@ -8,6 +8,7 @@ class Asset
   property :width, Float
   property :height, Float
   property :s3_original, String
+  property :s3_150, String
   property :s3_500, String
   property :s3_thumbnail, String
   property :deleted, Boolean, :required => true, :default => false
@@ -39,8 +40,16 @@ class Asset
 #    update(:s3_500 => fkey) 
   end
 
+  def s3_bucket
+    'http://s3.amazonaws.com/' + ENV['S3_BUCKET_NAME'] + '/'
+  end
+
   def url
-    'http://s3.amazonaws.com/' + ENV['S3_BUCKET_NAME'] + '/' + s3_original
+    s3_bucket + s3_original if s3_original
+  end
+
+  def url_150
+    s3_bucket + s3_150 if s3_150
   end
 
   def alt_text

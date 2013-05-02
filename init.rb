@@ -18,6 +18,7 @@ require "dm-validations"
 require "dm-migrations"
 require "dm-chunked_query"
 require "aws/s3"
+require "mini_magick"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
