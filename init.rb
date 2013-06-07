@@ -37,7 +37,7 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
-DataMapper.setup(:default, (ENV['HEROKU_POSTGRESQL_GOLD_URL'] || "sqlite:///#{Dir.pwd}/db/development.sqlite3"))
+DataMapper.setup(:default, (ENV['HEROKU_POSTGRESQL_GOLD_URL'] || "postgres://localhost:5432/baldur_development"))
 DataMapper.auto_upgrade!
 
 AWS::S3::Base.establish_connection!(
