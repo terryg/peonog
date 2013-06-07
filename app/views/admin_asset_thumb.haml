@@ -1,0 +1,12 @@
+%div{:class => "asset-thumbnail"}
+  %a{ :href => "/paintings/view/#{asset.id}" }
+    %img{ :width => "150", :src => asset.url_thumb, :alt => asset.alt_text }
+  %br
+  != asset.title_year_html
+  %br
+  != asset.media
+  %br
+  != asset.dim
+  %br
+  %br
+  %br

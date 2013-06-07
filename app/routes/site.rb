@@ -43,6 +43,11 @@ class Main
     haml :contact
   end
 
+  get "/admin" do
+    @assets = Asset.all(:deleted => false)
+    haml :admin
+  end
+
   get "/upload" do
     haml :upload
   end

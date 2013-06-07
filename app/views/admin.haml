@@ -1,0 +1,29 @@
+#wrap
+  #header
+    != partial :header
+  #nav 
+  #sidebar
+    %ul{:class=>"menu"}
+      %li
+        %a{:href=>"/"} HOME
+      %li &nbsp;
+      %li      
+        %a{:href=>"/admin"} ADMIN
+      %li &nbsp;
+      %li      
+        %a{:href=>"/upload"} UPLOAD
+  #main
+    - length = (@assets.length + 1)
+    - (0..length/2).each do |idx|
+      %div{ :class => "thumbs-container" }
+        %div{ :class => "thumbs-main" }
+          - unless @assets[idx].nil?
+            %div{ :class => "thumbs-block" }
+              != partial :admin_asset_thumb, :asset => @assets[idx]
+
+          - unless @assets[idx+1].nil?
+            %div{ :class => "thumbs-block" }
+              != partial :admin_asset_thumb, :asset => @assets[idx+1]
+
+  #footer
+    != partial :footer

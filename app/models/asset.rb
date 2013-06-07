@@ -9,12 +9,27 @@ class Asset
   property :height, Float
   property :s3_original, String
   property :s3_300, String
+  property :s3_500, String
+  property :s3_thumb, String
+  property :weight, String
   property :deleted, Boolean, :required => true, :default => false
   property :sold, Boolean, :required => true, :default => false
 
   belongs_to :series
 
   attr_accessor :temp_filename
+
+  def process(fname, sizing, ext, attribute_sym)
+    image = MiniMagick::Image.open(fname)
+    image.resize(sizing)
+    image.write(fname)
+      
+    value = (0...16).map{(97+rand(26)).chr}.join
+    fkey = value + ext
+
+    AWS::S3::S3Object.store(fkey, open(fname), ENV['S3_BUCKET_NAME'])
+    update(attribute_sym => fkey) 
+  end
 
   def store_on_s3(temp_file, filename)
     value = (0...16).map{(97+rand(26)).chr}.join
@@ -29,15 +44,9 @@ class Asset
     update(:s3_original => fkey)
     save
 
-    image = MiniMagick::Image.open(fname)
-    image.resize("300x1000")
-    image.write(fname)
-      
-    value = (0...16).map{(97+rand(26)).chr}.join
-    fkey = value + ext
-
-    AWS::S3::S3Object.store(fkey, open(fname), ENV['S3_BUCKET_NAME'])
-    update(:s3_300 => fkey) 
+    process(fname, "300x1000", ext, :s3_300)
+    process(fname, "500x2000", ext, :s3_500)
+    process(fname, "150x1000", ext, :s3_thumb)
   end
 
   def s3_bucket
@@ -48,8 +57,16 @@ class Asset
     s3_bucket + s3_original if s3_original
   end
 
+  def url_500
+    s3_bucket + s3_500 if s3_500
+  end
+
   def url_300
     s3_bucket + s3_300 if s3_300
+  end
+
+  def url_thumb
+    s3_bucket + s3_thumb if s3_thumb
   end
 
   def alt_text
