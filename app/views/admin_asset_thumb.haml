@@ -8,5 +8,7 @@
   %br
   != asset.dim
   %br
+  %label{:for=>"weight_#{asset.id}"} Weight:
+  %input(type="text" name="weight_#{asset.id}" value="#{@weights[asset.id]}")
   %br
   %br

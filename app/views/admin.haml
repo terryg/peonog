@@ -13,17 +13,23 @@
       %li      
         %a{:href=>"/upload"} UPLOAD
   #main
-    - length = (@assets.length + 1)
-    - (0..length/2).each do |idx|
-      %div{ :class => "thumbs-container" }
-        %div{ :class => "thumbs-main" }
-          - unless @assets[idx].nil?
-            %div{ :class => "thumbs-block" }
-              != partial :admin_asset_thumb, :asset => @assets[idx]
+    %form(method="post")
+      - length = (@assets.length - 1)
+      - (0..length/2).each do |idx|
+        %div{ :class => "thumbs-container" }
+          %div{ :class => "thumbs-main" }
+            - unless @assets[idx*2].nil?
+              %div{ :class => "thumbs-block" }
+                != partial :admin_asset_thumb, :asset => @assets[idx*2]
 
-          - unless @assets[idx+1].nil?
-            %div{ :class => "thumbs-block" }
-              != partial :admin_asset_thumb, :asset => @assets[idx+1]
+            - unless @assets[idx*2+1].nil?
+              %div{ :class => "thumbs-block" }
+                != partial :admin_asset_thumb, :asset => @assets[idx*2+1]
+      
+      Password: 
+      %input(type='text' name='password')
+      %br
+      %input(type='submit' value='Update!')
 
   #footer
     != partial :footer
