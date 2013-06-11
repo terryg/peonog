@@ -80,7 +80,7 @@ class Main
                            :width => params[:width].to_i*25.4,
                            :height => params[:height].to_i*25.4,
                            :series_id => series.id,
-                           :weight => 10)
+                           :weight => 100)
 
       asset.store_on_s3(params['myfile'][:tempfile], 
                         params['myfile'][:filename])

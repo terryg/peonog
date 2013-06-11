@@ -11,7 +11,7 @@ class Asset
   property :s3_300, String
   property :s3_500, String
   property :s3_thumb, String
-  property :weight, String
+  property :weight, Integer
   property :deleted, Boolean, :required => true, :default => false
   property :sold, Boolean, :required => true, :default => false
 
