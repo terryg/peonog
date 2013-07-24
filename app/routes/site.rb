@@ -77,13 +77,15 @@ class Main
   post "/upload" do
     if params['password'] == ENV['UPLOAD_PASSWORD']
       series = Series.first_or_create(:name => params[:series])
+      heaviest = Asset.first(:deleted => false, :order => [ :weight.desc ])
+
       asset = Asset.create(:title => params[:title],
                            :year => params[:year],
                            :media => params[:media],
                            :width => params[:width].to_i*25.4,
                            :height => params[:height].to_i*25.4,
                            :series_id => series.id,
-                           :weight => 100)
+                           :weight => heaviest.weight + 10)
 
       asset.store_on_s3(params['myfile'][:tempfile], 
                         params['myfile'][:filename])
