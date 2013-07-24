@@ -7,13 +7,13 @@ class Main
   get "/series/:id" do
     @name = params[:id].upcase
     @assets = Asset.all('series.name' => @name, :order => [ :weight.asc ])
-    haml :series
+    haml :thumbs
   end
 
   get "/works/:id" do
     @name = params[:id]
-    @assets = Asset.all(:year => @name, :order => [ :weight.asc ])
-    haml :series
+    @assets = paginate(Asset.all(:year => @name, :deleted => false, :order => [ :weight.asc ]))
+    haml :thumbs
   end
 
   get "/paintings" do
@@ -23,10 +23,13 @@ class Main
 
   get "/paintings/view/:id" do
     @asset = Asset.get(params[:id])
-    a = Asset.first('deleted' => false, :id.lt => params[:id], :order => [ :weight.asc ])
-    @prev_id = a.id if a
-    a = Asset.first('deleted' => false, :id.gt => params[:id], :order => [ :weight.asc ])
-    @next_id = a.id if a
+    assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
+    assets.each_with_index do |a,index|
+      if a.id == @asset.id
+        @prev_id = assets[index-1].id if index > 0 and assets[index-1]
+        @next_id = assets[index+1].id if index < assets.size and assets[index+1]
+      end
+    end
     haml :asset
   end
 
