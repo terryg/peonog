@@ -23,6 +23,10 @@ class Main
 
   get "/paintings/view/:id" do
     @asset = Asset.get(params[:id])
+
+    @full_url = "http://www.laramirandagoodman.com/paintings/view/#{params[:id]}"
+    @share_text = "Enjoyed viewing '#{@asset.title}' by Lara Miranda Goodman"
+
     assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
     assets.each_with_index do |a,index|
       if a.id == @asset.id

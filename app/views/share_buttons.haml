@@ -1,0 +1,7 @@
+%div{:class => 'share-buttons'}
+  %a{:href=>"https://twitter.com/share", :class=>"twitter-share-button", 'data-lang'=>"en", 'data-count'=>"horizontal", 'data-text'=>"#{@share_text}", 'data-url'=>"#{@full_url}"}
+    Tweet
+
+  %g:plusone{:size=>"medium", :href=>"#{@full_url}"}
+
+  %div{:class=>"fb-like", 'data-href'=>"#{@full_url}", 'data-send'=>"false", 'data-layout'=>"button_count", 'data-width'=>"75", 'data-show-faces'=>"true"}
