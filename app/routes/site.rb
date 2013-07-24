@@ -1,6 +1,8 @@
 class Main
   get "/" do
     @redis = monk_settings(:redis)
+    @full_url = "http://www.laramirandagoodman.com"
+    @share_text = "Enjoyed art by Lara Miranda Goodman"
     haml :home
   end
 
