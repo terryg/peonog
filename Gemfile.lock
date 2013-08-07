@@ -66,6 +66,7 @@ GEM
     mini_magick (3.5.0)
       subexec (~> 0.2.1)
     multi_json (1.3.2)
+    newrelic_rpm (3.6.6.147)
     pg (0.14.1)
     rack (1.4.1)
     rack-protection (1.3.2)
@@ -89,5 +90,6 @@ DEPENDENCIES
   dm-chunked_query
   dm-postgres-adapter
   mini_magick
+  newrelic_rpm
   pg
   sinatra
