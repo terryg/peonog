@@ -11,4 +11,7 @@
   %label{:for=>"weight_#{asset.id}"} Weight:
   %input(type="text" name="weight_#{asset.id}" value="#{@weights[asset.id]}")
   %br
+  %label{:for=>"delete_#{asset.id}"} Delete?
+  %input(type="checkbox" name="delete_#{asset.id}")
+  %br
   %br

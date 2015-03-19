@@ -1,4 +1,8 @@
 class Main
+  before do
+    logger.level = 0
+  end
+
   get "/" do
     @redis = monk_settings(:redis)
     @full_url = "http://www.laramirandagoodman.com"
@@ -25,8 +29,10 @@ class Main
 
   get "/paintings/view/:id" do
     @asset = Asset.get(params[:id])
+		
+		redirect "/paintings" if @asset.nil?
 
-    @full_url = "http://www.laramirandagoodman.com/paintings/view/#{params[:id]}"
+		@full_url = "http://www.laramirandagoodman.com/paintings/view/#{@asset.id}"
     @share_text = "Enjoyed viewing '#{@asset.title}' by Lara Miranda Goodman"
 
     assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
@@ -37,10 +43,6 @@ class Main
       end
     end
     haml :asset
-  end
-
-  get "/oysters" do
-    haml :oysters
   end
 
   get "/CV" do
@@ -62,6 +64,8 @@ class Main
   end
 
   post "/admin" do
+		logger.debug "XXXXXX"
+		logger.debug params
     if params['password'] == ENV['UPLOAD_PASSWORD']
       @assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
       @weights = {}
@@ -71,6 +75,9 @@ class Main
           asset.save
           @weights[asset.id] = asset.weight
         end
+				if params["delete_#{asset.id}"]
+					asset.destroy
+				end
       end
     end
     haml :admin
@@ -83,7 +90,9 @@ class Main
   post "/upload" do
     if params['password'] == ENV['UPLOAD_PASSWORD']
       series = Series.first_or_create(:name => params[:series])
-      heaviest = Asset.first(:deleted => false, :order => [ :weight.desc ])
+      heaviest = Asset.first(:deleted => false, :order => [ :weight.desc ]) 
+			weight = heaviest.weight unless heaviest.nil?
+			weight ||= 0
 
       asset = Asset.create(:title => params[:title],
                            :year => params[:year],
@@ -91,7 +100,7 @@ class Main
                            :width => params[:width].to_i*25.4,
                            :height => params[:height].to_i*25.4,
                            :series_id => series.id,
-                           :weight => heaviest.weight + 10)
+                           :weight => weight + 10)
 
       asset.store_on_s3(params['myfile'][:tempfile], 
                         params['myfile'][:filename])
