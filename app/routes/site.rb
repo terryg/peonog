@@ -1,8 +1,4 @@
 class Main
-  before do
-    logger.level = 0
-  end
-
   get "/" do
     @redis = monk_settings(:redis)
     @full_url = "http://www.laramirandagoodman.com"
@@ -64,8 +60,6 @@ class Main
   end
 
   post "/admin" do
-		logger.debug "XXXXXX"
-		logger.debug params
     if params['password'] == ENV['UPLOAD_PASSWORD']
       @assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
       @weights = {}
