@@ -1,6 +1,6 @@
 require "./init"
+require "./app"
 
-Main.set :run, false
-Main.set :environment, :production
+$stdout.sync = true
 
-run Main
+run App

@@ -1,15 +1,5 @@
-ROOT_DIR = File.expand_path(File.dirname(__FILE__)) unless defined? ROOT_DIR
-
 require "rubygems"
 
-begin
-  require File.expand_path("vendor/dependencies/lib/dependencies", File.dirname(__FILE__))
-rescue LoadError
-  require "dependencies"
-end
-
-require "monk/glue"
-require "ohm"
 require "haml"
 require "sass"
 require "logger"
@@ -20,23 +10,7 @@ require "dm-chunked_query"
 require "aws/s3"
 require "mini_magick"
 
-class Main < Monk::Glue
-  set :app_file, __FILE__
-  use Rack::Session::Cookie
-end
-
-# Connect to redis database.
-Ohm.connect(monk_settings(:redis))
-
-# Load all application files.
-Dir[root_path("app/**/*.rb")].each do |file|
-  require file
-end
-
-if defined? Encoding
-  Encoding.default_external = Encoding::UTF_8
-end
-
+DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, (ENV['HEROKU_POSTGRESQL_GOLD_URL'] || "postgres://localhost:5432/baldur_development"))
 DataMapper.auto_upgrade!
 
@@ -45,4 +19,3 @@ AWS::S3::Base.establish_connection!(
   :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
 )
 
-Main.run! if Main.run?
