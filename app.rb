@@ -4,6 +4,7 @@ require 'sass'
 
 require './helpers'
 require './models/asset'
+require './models/series'
 
 class App < Sinatra::Base
 	use Rack::Session::Cookie, :key => 'rack.session', :secret => 'this-is-the-patently-secret-thing'
@@ -11,10 +12,27 @@ class App < Sinatra::Base
 	helpers Helpers
 
 	set :logging, Logger::DEBUG
+
+  before do
+    if request.env['HTTP_HOST'].match(/herokuapp\.com/)
+      redirect 'http://www.laramirandagoodman.com', 301
+    end
+  end
+
+	get "/gallery" do
+		@series = Series.all(:order => :id.desc)
+		haml :gallery
+	end
 	
+	get "/slideshow" do
+		@assets = Asset.all(:deleted.not => TRUE, :order => :weight.asc)
+		haml :slideshow
+	end
+
   get "/" do
     @full_url = "http://www.laramirandagoodman.com"
     @share_text = "Enjoyed art by Lara Miranda Goodman"
+		@series = Series.all(:order => :id.desc)
     haml :home
   end
 
