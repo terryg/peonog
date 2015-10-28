@@ -6,33 +6,36 @@ require './helpers'
 require './models/asset'
 require './models/series'
 
+DataMapper.finalize
+
 class App < Sinatra::Base
-	use Rack::Session::Cookie, :key => 'rack.session', :secret => 'this-is-the-patently-secret-thing'
+  use Rack::Session::Cookie, :key => 'rack.session', :secret => 'this-is-the-patently-secret-thing'
   enable :methodoverride
-	helpers Helpers
-
-	set :logging, Logger::DEBUG
-
+  helpers Helpers
+  
+  set :logging, Logger::DEBUG
+  
   before do
     if request.env['HTTP_HOST'].match(/herokuapp\.com/)
       redirect 'http://www.laramirandagoodman.com', 301
     end
   end
 
-	get "/gallery" do
-		@series = Series.all(:order => :id.desc)
-		haml :gallery
-	end
+  get "/gallery" do
+    @series = Series.all(:order => :id.desc)
+    haml :gallery
+  end
 	
-	get "/slideshow" do
-		@assets = Asset.all(:deleted.not => TRUE, :order => :weight.asc)
-		haml :slideshow
-	end
+  get "/slideshow" do
+    @assets = Asset.all(:deleted.not => TRUE, :order => :weight.asc)
+    haml :slideshow
+  end
 
   get "/" do
+    @home = "1"
     @full_url = "http://www.laramirandagoodman.com"
-    @share_text = "Enjoyed art by Lara Miranda Goodman"
-		@series = Series.all(:order => :id.desc)
+    @share_text = "Lara Miranda Goodman"
+    @series = Series.all(:order => :id.desc)
     haml :home
   end
 
@@ -60,12 +63,12 @@ class App < Sinatra::Base
 
   get "/paintings/view/:id" do
     @asset = Asset.get(params[:id].to_i)
-
-		redirect "/paintings" if @asset.nil?
-
-		@full_url = "http://www.laramirandagoodman.com/paintings/view/#{@asset.id}"
+    
+    redirect "/paintings" if @asset.nil?
+    
+    @full_url = "http://www.laramirandagoodman.com/paintings/view/#{@asset.id}"
     @share_text = "Enjoyed viewing '#{@asset.title}' by Lara Miranda Goodman"
-
+    
     assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
     assets.each_with_index do |a,index|
       if a.id == @asset.id
@@ -104,9 +107,9 @@ class App < Sinatra::Base
           asset.save
           @weights[asset.id] = asset.weight
         end
-				if params["delete_#{asset.id}"]
-					asset.destroy
-				end
+        if params["delete_#{asset.id}"]
+          asset.destroy
+        end
       end
     end
     haml :admin
