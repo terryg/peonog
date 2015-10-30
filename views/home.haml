@@ -5,16 +5,16 @@
   #sidebar
     != partial :sidebar
   #main
-    #two{ :style => "display:none;opacity:0;" }
+    #two{ :style => "display:inline;opacity:1;" }
       %a{ :href => "http://www.theclayschool.com/openstudios.html", :target => "_blank" }
         %img{ :src => '/images/openstudios.jpg', :width => "500", :alt => "Open Studios. 21-22 Nov." }
       %br <a href="http://lydiapinkhamopenstudios.com">Lydia Pinkham Open Studios</a>
-    #one{ :style => "display:inline;opacity:1;" }
+    #one{ :style => "display:none;opacity:0;" }
       %a{ :href => "/paintings/view/12" }
         %img{ :src => '/images/spiaggia.jpg', :alt => "Spiaggia. 10x14. Oil on canvas. 2012."  }
       %br <em>Spiaggia</em>, 2012. Oil on canvas. 10 x 14 inches
     %script
-      var start = 1000;
+      var start = 10000;
       setTimeout(swap, start);
 
       function swap() {
