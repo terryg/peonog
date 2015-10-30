@@ -34,19 +34,19 @@ module Helpers
       @pages[@page - 1]
     end
 
-    def pagination_links
+    def pagination_links(uri)
       [%(<ul class="paginator">),
        intermediate_links.join("\n"),
        '</ul>'].join
     end
     
-    def intermediate_links
+    def intermediate_links(uri)
       (1..@page_count).map do |page|
         if @page == page
           sb = "["
           eb = "]"
         end
-        "<li>#{sb}<a href=\"/paintings?page=#{page}\">#{page}</a>#{eb}</li>"
+        "<li>#{sb}<a href=\"/#{uri}?page=#{page}\">#{page}</a>#{eb}</li>"
       end
     end
 

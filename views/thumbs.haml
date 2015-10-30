@@ -6,7 +6,7 @@
     != partial :sidebar
   #main
     %div{ :class => "pager-links" }
-      != pagination_links
+      != pagination_links(@uri)
 
     %div{ :class => "row-fluid" }
       %div{ :class => "span6" }
