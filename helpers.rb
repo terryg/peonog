@@ -36,7 +36,7 @@ module Helpers
 
     def pagination_links(uri)
       [%(<ul class="paginator">),
-       intermediate_links.join("\n"),
+       intermediate_links(uri).join("\n"),
        '</ul>'].join
     end
     
