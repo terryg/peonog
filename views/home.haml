@@ -29,7 +29,7 @@
       for (var i = 0; i <= 1; i+=inc) {
       setTimeout(setOpacity, start + i*step, one, 1-i);
       setTimeout(setOpacity, start + step + i*step, two, i);
-      setTimeout(setOpacity, 2*start + step + i*step, one, 1);
+      setTimeout(setOpacity, 2*start + step + i*step, one, i);
       setTimeout(setOpacity, 2*start + 2*step + i*step, two, 1-i);
       }
 
