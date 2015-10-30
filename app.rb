@@ -45,14 +45,14 @@ class App < Sinatra::Base
   end
 
   get "/series/:id" do
-    @uri = "series"
+    @uri = "series/#{params[:id]}"
     @name = params[:id].upcase
     @assets = paginate(Asset.all('series.name' => @name, :order => [ :weight.asc ]))
     haml :thumbs
   end
 
   get "/works/:id" do
-    @uri = "works"
+    @uri = "works/#{params[:id]}"
     @name = params[:id]
     @assets = paginate(Asset.all(:year => @name, :deleted => false, :order => [ :weight.asc ]))
     haml :thumbs
