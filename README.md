@@ -1,6 +1,6 @@
 baldur
 ======
 
-My image gallery, inspired by espen/balder
+My image gallery, inspired by https://github.com/espen/balder
 
 Deployed to http://www.laramirandagoodman.com
