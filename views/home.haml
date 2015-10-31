@@ -15,32 +15,42 @@
       %br <em>Spiaggia</em>, 2012. Oil on canvas. 10 x 14 inches
     %script
       var start = 5000;
-      setTimeout(swap, start);
+      setInterval(swap, start);
 
       function swap() {
       one = document.getElementById("one");
       two = document.getElementById("two");
 
-      if (one.style.display == "inline") {
       var step = 3000;
       var inc = 0.02;
       var total = 0;
+
+      if (one.style.display == "inline") {
       
       for (var i = 0; i <= 1; i+=inc) {
       setTimeout(setOpacity, start + i*step, one, 1-i);
       setTimeout(setOpacity, start + step + i*step, two, i);
-      setTimeout(setOpacity, 2*start + step + i*step, one, i);
-      setTimeout(setOpacity, 2*start + 2*step + i*step, two, 1-i);
       }
 
       setTimeout(hide, start+step+1, one);
       setTimeout(show, start+step+1, two);
 
-      setTimeout(hide, 2*start+2*step+1, two);
-      setTimeout(show, 2*start+2*step+1, one);
+      } else {
+
+      for (var i = 0; i <= 1; i+=inc) {
+      setTimeout(setOpacity, start + i*step, two, 1-i);
+      setTimeout(setOpacity, start + step + i*step, one, i);
+      }
+
+      setTimeout(hide, start+step+1, two);
+      setTimeout(show, start+step+1, one);
+
 
       } // if
       
+
+      start = start + (start+step+1);
+
       } // swap()
 
       function setOpacity(el, opacity) {
