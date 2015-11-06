@@ -5,51 +5,38 @@
   #sidebar
     != partial :sidebar
   #main
-    #one{ :style => "display:inline;opacity:1;" }
+    #two{ :style => "center;height:450px;display:none;opacity:0;" }
       %a{ :href => "http://www.theclayschool.com/openstudios.html", :target => "_blank" }
         %img{ :src => '/images/openstudios.jpg', :width => "500", :alt => "Open Studios. 21-22 Nov." }
       %br <a href="http://lydiapinkhamopenstudios.com">Lydia Pinkham Open Studios</a>
-    #two{ :style => "display:none;opacity:0;" }
-      %a{ :href => "/paintings/view/12" }
-        %img{ :src => '/images/spiaggia.jpg', :alt => "Spiaggia. 10x14. Oil on canvas. 2012."  }
-      %br <em>Spiaggia</em>, 2012. Oil on canvas. 10 x 14 inches
+    #one{ :style => "height:450px;display:block;opacity:1;" }
+      %a{ :href => "/paintings/view/46" }
+        %img{ :src => 'https://s3.amazonaws.com/laramirandagoodman-assets/ygcbihdwukvzsuay.jpg', :alt => "Walking with Leo. 9x12. Oil on canvas. 2015."  }
+      %br <em>Walking with Leo</em>, 2015. Oil on canvas. 9 x 12 inches
     %script
-      var start = 5000;
-      setInterval(swap, start);
+      setTimeout(swap, 3000);
 
       function swap() {
-      one = document.getElementById("one");
-      two = document.getElementById("two");
+      var one = document.getElementById("one");
+      var two = document.getElementById("two");
 
-      var step = 3000;
-      var inc = 0.02;
-      var total = 0;
+      var step = 5000;
+      var inc = 0.01;
 
-      if (one.style.display == "inline") {
-      
-      for (var i = 0; i <= 1; i+=inc) {
-      setTimeout(setOpacity, start + i*step, one, 1-i);
-      setTimeout(setOpacity, start + step + i*step, two, i);
-      }
-
-      setTimeout(hide, start+step+1, one);
-      setTimeout(show, start+step+1, two);
-
-      } else {
+      setTimeout(show, step, two);
+      setTimeout(hide, step, one);
+      setTimeout(show, 3*step, one);
+      setTimeout(hide, 3*step, two);
 
       for (var i = 0; i <= 1; i+=inc) {
-      setTimeout(setOpacity, start + i*step, two, 1-i);
-      setTimeout(setOpacity, start + step + i*step, one, i);
+      setTimeout(setOpacity, i*step, one, 1-i);
+      setTimeout(setOpacity, step+i*step, two, i);
+
+      setTimeout(setOpacity, 2*step + i*step, two, 1-i);
+      setTimeout(setOpacity, 3*step + i*step, one, i);
       }
-
-      setTimeout(hide, start+step+1, two);
-      setTimeout(show, start+step+1, one);
-
-
-      } // if
       
-
-      start = start + (start+step+1);
+      setTimeout(swap, 5*step);
 
       } // swap()
 
@@ -63,7 +50,7 @@
       }
 
       function show(el) {
-      el.style.display = "inline";
+      el.style.display = "block";
       }
     
     != partial :share_buttons
