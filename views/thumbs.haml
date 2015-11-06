@@ -9,7 +9,7 @@
       != pagination_links(@uri)
 
     %div{ :class => "row-fluid" }
-      %div{ :class => "span6" }
+      %div{ :class => "col-md-6" }
         - unless @assets[0].nil?
           != partial :asset_thumbnail, :asset => @assets[0]
       %div{ :class => "span6" }
@@ -17,10 +17,10 @@
           != partial :asset_thumbnail, :asset => @assets[1]
 
     %div{ :class => "row-fluid" }
-      %div{ :class => "span6" }
+      %div{ :class => "col-md-6" }
         - unless @assets[2].nil?
           != partial :asset_thumbnail, :asset => @assets[2]
-      %div{ :class => "span6" }
+      %div{ :class => "col-md-6" }
         - unless @assets[3].nil?
           != partial :asset_thumbnail, :asset => @assets[3]
 
