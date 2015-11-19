@@ -19,6 +19,41 @@ class Asset
 
   attr_accessor :temp_filename
 
+  def update_from_form(attrs)
+    if attrs["password"] == "karlfardman"
+      p "WILL UPDATE!!!"
+      p attrs
+      p "XXX sold #{attrs['sold']} XXX"
+      p "XXX deleted #{attrs['deleted']} XXX"
+      asset = Asset.get(attrs[:id].to_i)
+      asset.title = attrs["title"]
+      asset.year = attrs["year"]
+      asset.media = attrs["media"]
+      asset.width = (25.4 * attrs["width"].to_f)
+      asset.height = (25.4 * attrs["height"].to_f)
+      asset.weight = attrs["weight"].to_i
+
+      if attrs["sold"] == "on"
+        asset.sold = true
+      else 
+        asset.sold = false
+      end
+
+      if attrs["deleted"] == "on"
+        asset.deleted = true
+      else
+        asset.deleted = false
+      end
+
+      if not asset.save
+        p "XXX Save said: false XXX"
+        asset.errors.each do |err|
+          p "err: #{err}"
+        end
+      end
+    end
+  end
+
   def process(fname, sizing, ext, attribute_sym)
     image = MiniMagick::Image.open(fname)
     image.resize(sizing)

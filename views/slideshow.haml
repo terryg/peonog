@@ -1,0 +1,37 @@
+.slide-container
+  - index = 0
+  - @assets.each do |asset|
+    .slide{:id => "slide#{index}"}
+      %img{:height => 600, :src => asset.url, :alt => asset.alt_text}
+      %div
+        != asset.text_html
+    - index = index + 1
+
+:javascript
+  var size = #{@assets.size};
+  var current = 0;
+
+  setInterval(change_slide, 3000);
+
+  function change_slide() {
+  el = document.getElementById("slide"+current);
+  hide(el);
+
+  current = current + 1;
+  if (current == size) {
+  current = 0;
+  }
+  el = document.getElementById("slide"+current);
+  show(el);
+  }
+
+  function show(el) {
+  el.style.display = "block";
+  }
+
+  function hide(el) { 
+  el.style.display = "none";
+  }
+
+  
+

@@ -21,6 +21,17 @@ class App < Sinatra::Base
     end
   end
 
+  get "/assets/:id" do
+    @asset = Asset.get(params[:id].to_i)
+    haml :asset
+  end
+
+  post "/assets/:id" do
+    asset = Asset.get(params[:id].to_i)
+    asset.update_from_form(params)
+    redirect "/assets/#{params[:id]}", 301
+  end
+
   get "/gallery" do
     @series = Series.all(:order => :id.desc)
     haml :gallery
