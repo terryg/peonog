@@ -23,7 +23,21 @@ class App < Sinatra::Base
 
   get "/assets/:id" do
     @asset = Asset.get(params[:id].to_i)
-    haml :asset
+    redirect "/assets" if @asset.nil?
+    @full_url = "http://www.laramirandagoodman.com/paintings/view/#{@asset.id}"
+    assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
+    assets.each_with_index do |a,index|
+      if a.id == @asset.id
+        @prev_id = assets[index-1].id if index > 0 and assets[index-1]
+        @next_id = assets[index+1].id if index < assets.size and assets[index+1]
+      end
+    end 
+    
+    if params[:edit] == "on"
+      haml :asset_form
+    else
+      haml :asset
+    end
   end
 
   post "/assets/:id" do
@@ -45,7 +59,6 @@ class App < Sinatra::Base
   get "/" do
     @home = "1"
     @full_url = "http://www.laramirandagoodman.com"
-    @share_text = "Lara Miranda Goodman"
     @series = Series.all(:order => :id.desc)
     haml :home
   end
@@ -73,24 +86,6 @@ class App < Sinatra::Base
     @uri = "paintings"
     @assets = paginate(Asset.all(:deleted => false, :order => [ :weight.asc ]))
     haml :thumbs
-  end
-
-  get "/paintings/view/:id" do
-    @asset = Asset.get(params[:id].to_i)
-    
-    redirect "/paintings" if @asset.nil?
-    
-    @full_url = "http://www.laramirandagoodman.com/paintings/view/#{@asset.id}"
-    @share_text = "Enjoyed viewing '#{@asset.title}' by Lara Miranda Goodman"
-    
-    assets = Asset.all(:deleted => false, :order => [ :weight.asc ])
-    assets.each_with_index do |a,index|
-      if a.id == @asset.id
-        @prev_id = assets[index-1].id if index > 0 and assets[index-1]
-        @next_id = assets[index+1].id if index < assets.size and assets[index+1]
-      end
-    end
-    haml :asset
   end
 
   get "/CV" do
@@ -137,9 +132,9 @@ class App < Sinatra::Base
     if params['password'] == ENV['UPLOAD_PASSWORD']
       series = Series.first_or_create(:name => params[:series])
       heaviest = Asset.first(:deleted => false, :order => [ :weight.desc ]) 
-			weight = heaviest.weight unless heaviest.nil?
-			weight ||= 0
-
+      weight = heaviest.weight unless heaviest.nil?
+      weight ||= 0
+      
       asset = Asset.create(:title => params[:title],
                            :year => params[:year],
                            :media => params[:media],

@@ -1,51 +1,36 @@
-.container
-  .row
-    .col-md-3
-    .col-md-6
-      %div
-        %img{ :width => "500", :src => @asset.url_500, :alt => @asset.alt_text }
-    .col-md-3
-  .row
-    .col-md-3
-    .col-md-6
-      .panel
-        %form#assets(action="/assets/#{@asset.id}" method="POST")
-          %label{:for => "title"} Title:
-          %input#title(type="text" name="title" value="#{@asset.title}")
-          %br
-          %label{:for => "year"} Year:
-          %input#year(type="text" name="year" value="#{@asset.year}")
-          %br
-          %label{:for => "media"} Media:
-          %input#media(type="text" name="media" value="#{@asset.media}")
-          %br
-          %label{:for => "width"} Width:
-          %input#width(type="text" name="width" value="#{@asset.width_in}")
-          %br
-          %label{:for => "height"} Height:
-          %input#height(type="text" name="height" value="#{@asset.height_in}")
-          %br
-          %label{:for => "weight"} Weight:
-          %input#weight(type="text" name="weight" value="#{@asset.weight}")
-          %br
-          %label{:for => "sold"} Sold:
-          - if @asset.sold
-            %input#sold(type="checkbox" name="sold" checked)
-          - else
-            %input#sold(type="checkbox" name="sold")
-          %br
-          %label{:for => "deleted"} Deleted:
-          - if @asset.deleted
-            %input#deleted(type="checkbox" name="deleted" checked="#{@asset.deleted}")
-          - else
-            %input#deleted(type="checkbox" name="deleted")
-          %br
-          %label{:for => "password"} Password:
-          %input#password(type="text" name="password" value="karlfardman")
-          %br
-          %input(type="submit" value="Submit")
-    .col-md-3
-  
-#footer
-  != partial :footer
+#wrap
+  #header
+    != partial :header
+  #nav
+  #sidebar
+    != partial :sidebar
+  #main
+    %div{ :id => "asset-selector" }
+      - if "#{@prev_id}" != ""
+        %a{ :href => "/assets/#{@prev_id}" }
+          <<
+      - else
+        &nbsp;
+        &nbsp;
 
+      &nbsp;
+      &nbsp;
+
+      - if "#{@next_id}" != ""
+        %a{ :href => "/assets/#{@next_id}" }
+          >>
+      - else
+        &nbsp;
+        &nbsp;
+
+    %div
+      %img{ :width => "500", :src => @asset.url_500, :alt => @asset.alt_text }
+      %br
+      != @asset.text_html
+      %br
+      %br
+      != partial :share_buttons
+    %div
+
+  #footer
+    != partial :footer
