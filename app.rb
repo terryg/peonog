@@ -56,6 +56,11 @@ class App < Sinatra::Base
     haml :slideshow
   end
 
+  get "/pricelist" do
+    @assets = Asset.all(:deleted.not => TRUE, :sold.not => TRUE, :order => :weight.asc)
+    haml :pricelist
+  end
+
   get "/" do
     @home = "1"
     @full_url = "http://www.laramirandagoodman.com"

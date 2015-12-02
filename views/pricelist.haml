@@ -1,0 +1,24 @@
+#wrap
+  #header
+    != partial :header
+  #main
+    %table{:width => "600"}
+      %thead
+        %tr
+          %td
+          %td
+          %td
+      %tbody
+        - @assets.each do |asset|
+          %tr
+            %td
+              - if params["links"] == "on"
+                %a{:href => "/assets/#{asset.id}?edit=on"}
+                  = asset.alt_text
+              - else
+                = asset.alt_text
+            %td
+            %td{:style => "text-align:right;"}
+              = asset.price_text
+  #footer
+    != partial :footer

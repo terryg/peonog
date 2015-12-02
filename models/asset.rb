@@ -21,10 +21,6 @@ class Asset
 
   def update_from_form(attrs)
     if attrs["password"] == "karlfardman"
-      p "WILL UPDATE!!!"
-      p attrs
-      p "XXX sold #{attrs['sold']} XXX"
-      p "XXX deleted #{attrs['deleted']} XXX"
       asset = Asset.get(attrs[:id].to_i)
       asset.title = attrs["title"]
       asset.year = attrs["year"]
@@ -121,11 +117,27 @@ class Asset
   end
 
   def width_in
-    width / 25.4
+    if width.nil?
+      0
+    else
+      width / 25.4
+    end
   end
 
   def height_in
-    height / 25.4
+    if height.nil?
+      0
+    else
+      height / 25.4
+    end
+  end
+
+  def price
+    20 * (width_in + height_in)
+  end
+
+  def price_text
+    "$#{'%.2f' % price}"
   end
 
 end
