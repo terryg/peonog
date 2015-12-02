@@ -14,9 +14,9 @@
             %td
               - if params["links"] == "on"
                 %a{:href => "/assets/#{asset.id}?edit=on"}
-                  = asset.alt_text
+                  = asset.short_description_text
               - else
-                = asset.alt_text
+                = asset.short_description_text
             %td
             %td{:style => "text-align:right;"}
               = asset.price_text

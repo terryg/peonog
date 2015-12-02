@@ -28,6 +28,16 @@
           %label{:for => "weight"} Weight:
           %input#weight(type="text" name="weight" value="#{@asset.weight}")
           %br
+          %label{:for => "series"} Series:
+          %select#series(name="series")
+            - @series.each do |series|
+              - if series.id == @asset.series_id
+                %option{:value => series.id, :selected => true}
+                  = series.name
+              - else   
+                %option{:value => series.id}
+                  = series.name
+          %br     
           %label{:for => "sold"} Sold:
           - if @asset.sold
             %input#sold(type="checkbox" name="sold" checked)

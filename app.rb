@@ -34,6 +34,7 @@ class App < Sinatra::Base
     end 
     
     if params[:edit] == "on"
+      @series = Series.all(:order => :name.desc)
       haml :asset_form
     else
       haml :asset

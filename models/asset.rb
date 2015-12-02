@@ -22,12 +22,15 @@ class Asset
   def update_from_form(attrs)
     if attrs["password"] == "karlfardman"
       asset = Asset.get(attrs[:id].to_i)
+
       asset.title = attrs["title"]
       asset.year = attrs["year"]
       asset.media = attrs["media"]
       asset.width = (25.4 * attrs["width"].to_f)
       asset.height = (25.4 * attrs["height"].to_f)
       asset.weight = attrs["weight"].to_i
+
+      asset.series = Series.get(attrs["series"].to_i)
 
       if attrs["sold"] == "on"
         asset.sold = true
@@ -100,6 +103,10 @@ class Asset
     s3_bucket + s3_thumb if s3_thumb
   end
 
+  def short_description_text
+    "%s. %dx%d. %s" % [title, height_in, width_in, year]
+  end
+
   def alt_text
     "%s. %dx%d. %s. %s. %s" % [title, height_in, width_in, media, year, (sold) ? 'SOLD' : '']
   end
@@ -137,7 +144,7 @@ class Asset
   end
 
   def price_text
-    "$#{'%.2f' % price}"
+    "$#{'%.0f' % price}"
   end
 
 end
