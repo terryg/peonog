@@ -5,55 +5,12 @@
   #sidebar
     != partial :sidebar
   #main
-    #two{ :style => "center;height:450px;display:none;opacity:0;" }
-      %a{ :href => "http://www.theclayschool.com/openstudios.html", :target => "_blank" }
-        %img{ :src => '/images/openstudios.jpg', :width => "500", :alt => "Open Studios. 21-22 Nov." }
-      %br <a href="http://lydiapinkhamopenstudios.com">Lydia Pinkham Open Studios</a>
-    #one{ :style => "height:450px;display:block;opacity:1;" }
-      %a{ :href => "/paintings/view/46" }
-        %img{ :src => 'https://s3.amazonaws.com/laramirandagoodman-assets/ygcbihdwukvzsuay.jpg', :alt => "Walking with Leo. 9x12. Oil on canvas. 2015."  }
-      %br <em>Walking with Leo</em>, 2015. Oil on canvas. 9 x 12 inches
-    %script
-      // :TODO: 20151123 tgl: I should make this slideshow configurable on/off.
-      //setTimeout(swap, 3000);
-
-      function swap() {
-      var one = document.getElementById("one");
-      var two = document.getElementById("two");
-
-      var step = 5000;
-      var inc = 0.01;
-
-      setTimeout(show, step, two);
-      setTimeout(hide, step, one);
-      setTimeout(show, 3*step, one);
-      setTimeout(hide, 3*step, two);
-
-      for (var i = 0; i <= 1; i+=inc) {
-      setTimeout(setOpacity, i*step, one, 1-i);
-      setTimeout(setOpacity, step+i*step, two, i);
-
-      setTimeout(setOpacity, 2*step + i*step, two, 1-i);
-      setTimeout(setOpacity, 3*step + i*step, one, i);
-      }
-      
-      setTimeout(swap, 5*step);
-
-      } // swap()
-
-      function setOpacity(el, opacity) {
-      el.style.opacity = opacity;
-      el.style.opacity = "alpha(opacity="+(100*opacity)+")";
-      } 
-
-      function hide(el) {
-      el.style.display = "none";
-      }
-
-      function show(el) {
-      el.style.display = "block";
-      }
-    
+    %div{:class => "mission"}
+      For the establishing and maintaining of a place for a reading room and social meetings, and the encouragement of yachting.
+    %div{:class => "picture"}
+      %img{:src => 'images/swampclub1.jpg'} 
+    %div{:class => "entry"}
+      Famous for claiming countless trophies for dory racing, with many of those trophies still on display at the Club, attesting to its prowess on the the high seas.
     != partial :share_buttons
   #footer
     != partial :footer

@@ -17,7 +17,7 @@ class App < Sinatra::Base
   
   before do
     if request.env['HTTP_HOST'].match(/herokuapp\.com/)
-      redirect 'http://www.laramirandagoodman.com', 301
+      redirect 'http://www.swampscottclub.org', 301
     end
   end
 
@@ -64,9 +64,15 @@ class App < Sinatra::Base
 
   get "/" do
     @home = "1"
-    @full_url = "http://www.laramirandagoodman.com"
-    @series = Series.all(:order => :id.desc)
+    @full_url = "http://www.swampscottclub.org"
+    @copyright = "2008-2016 The Swampscott Club. All Rights Reserved."
     haml :home
+  end
+ 
+  get "/about" do
+    @full_url = "http://www.swampscottclub.org"
+    @copyright = "2008-2016 The Swampscott Club. All Rights Reserved."
+    haml :about
   end
 
   get "/css/:stylesheet.css" do
