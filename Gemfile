@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.1.10'
 gem 'sinatra'
 gem 'data_mapper'
 gem 'pg'
