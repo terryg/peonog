@@ -69,6 +69,12 @@ class App < Sinatra::Base
     haml :home
   end
  
+  get "/about" do
+    @full_url = "http://www.swampscottclub.org"
+    @copyright = "2008-2016 The Swampscott Club. All Rights Reserved."
+    haml :about
+  end
+
   get "/history" do
     @full_url = "http://www.swampscottclub.org"
     @copyright = "2008-2016 The Swampscott Club. All Rights Reserved."
