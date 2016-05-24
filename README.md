@@ -1,6 +1,6 @@
-baldur
+peonog
 ======
 
-My image gallery, inspired by https://github.com/espen/balder
+Intentional community website.
 
-Deployed to http://www.laramirandagoodman.com
+Deployed to http://www.swampscottclub.org
