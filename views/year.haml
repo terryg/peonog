@@ -1,0 +1,5 @@
+%h2
+  = @year
+#calender
+  - (0..11).each do |i|
+    != partial :month, year: @year, month: i

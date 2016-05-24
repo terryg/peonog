@@ -81,6 +81,15 @@ class App < Sinatra::Base
     haml :history
   end
 
+  get "/calendar" do
+    @full_url = "http://www.swampscottclub.org"
+    @copyright = "2008-2016 The Swampscott Club. All Rights Reserved."
+    @month_abb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    @year = Time.now.strftime("%Y")
+    haml :calendar
+  end
+
+
   get "/css/:stylesheet.css" do
     content_type "text/css", :charset => "UTF-8"
     sass :"css/#{params[:stylesheet]}"
@@ -106,12 +115,10 @@ class App < Sinatra::Base
     haml :thumbs
   end
 
-  get "/CV" do
-    haml :cv
-  end
-
   get "/contact" do
-    @address = "artist@laramirandagoodman.com"
+    @full_url = "http://www.swampscottclub.org"
+    @copyright = "2008-2016 The Swampscott Club. All Rights Reserved."
+    @address = "swampscottclub@gmail.com"
     haml :contact
   end
 

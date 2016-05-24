@@ -1,0 +1,12 @@
+#wrap
+  #header
+    != partial :header
+  #nav
+  #sidebar
+    != partial :sidebar
+  #main
+    %div{:class => "calendar"}
+      != partial :year
+    != partial :share_buttons
+  #footer
+    != partial :footer

@@ -1,0 +1,25 @@
+- this_month = Date.strptime("#{year}-#{month+1}", "%Y-%m")
+- current_date = this_month
+- puts "Month is #{current_date.strftime("%Y-%m-%d")}"
+- until current_date.monday? do
+  - current_date = current_date - 1
+
+- puts "Monday is #{current_date.strftime("%Y-%m-%d")}"
+
+%div{:class => "month", :id => "#{year}-#{month}"}
+  %table
+    %thead
+      %tr
+        %th{:colspan => "7"}
+          %span{:class => "month-label"}
+            = @month_abb[month]
+    %tbody
+      - begin
+        %tr
+          - (0..6).each do |i|
+            - if (current_date.month == this_month.month)
+              != partial :day, day: current_date.mday
+            - else
+              %td  
+            - current_date = current_date + 1
+      -end while (current_date.month == this_month.month)
